@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="9d55e69f-87d8-4697-8747-f1873ad882cc" >
+		<http:listener-connection host="0.0.0.0" port="${http.port}" />
+	</http:listener-config>
+	<configuration-properties doc:name="Configuration properties" doc:id="f4cbcf4b-a7d3-4569-a117-abd1cea85143" file="myConfig-dev.yaml" />
+	<flow name="arthematic-cicd-apiFlow" doc:id="072299f3-8ba7-4fea-8d27-351a3e0ff897" >
+		<http:listener doc:name="Listener" doc:id="7d22a25c-f3f9-48cd-a11e-2533bea8677e" config-ref="HTTP_Listener_config" path="/arthematic"/>
+		<logger level="INFO" doc:name="Logger" doc:id="e358e57b-2562-4466-a558-06985e142660" message="------------inside the arthematic api is invoked-----------"/>
+		<set-variable value="#[attributes.queryParams.num1]" doc:name="num1" doc:id="c2271fab-5fe4-4e14-af71-fc4f3002d0e9" variableName="num1"/>
+		<set-variable value="#[attributes.queryParams.num2]" doc:name="num2" doc:id="132e7050-2ab4-4713-a1c5-f5c4b9efbc0f" variableName="num2"/>
+		<ee:transform doc:name="Transform Message" doc:id="9016cdb8-ae43-4d18-a688-bc6ba650de4e" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"message": p('log.message'),
+	"addition": (vars.num1 as Number + vars.num2 as Number),
+	"subtraction": (vars.num1 as Number - vars.num2 as Number),
+	"multiplication": (vars.num1 as Number * vars.num2 as Number),
+	"division": (vars.num1 as Number / vars.num2 as Number)
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="5165256d-a58c-494a-a1d5-cdf60e312380" message="--------successfully completed arthematic api----------------"/>
+	</flow>
+</mule>
