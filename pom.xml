@@ -30,7 +30,7 @@
 				<version>${mule.maven.plugin.version}</version>
 				<extensions>true</extensions>
 				 <configuration>
-					    <cloudHubDeployment>
+					
 					        <cloudHubDeployment>
 		            <uri>https://anypoint.mulesoft.com</uri>
 		            <muleVersion>${mule.vesrion}</muleVersion>
@@ -46,7 +46,7 @@
 					<!-- <properties>
 						<http.port>8081</http.port>
 					</properties> -->
-		        </cloudHubDeployment> 
+		      
 					    </cloudHubDeployment>
 					  </configuration>
 			</plugin>
