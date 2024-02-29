@@ -31,20 +31,22 @@
 				<extensions>true</extensions>
 				 <configuration>
 					    <cloudHubDeployment>
-					      <uri>https://anypoint.mulesoft.com</uri>
-					      <muleVersion>${deployment.app.runtime}</muleVersion>
-					      <username>${anypoint.username}</username>
-					      <password>${anypoint.password}</password>
-					      <applicationName>${project.artifactId}</applicationName>
-					      <environment>${env}</environment>
-					      <region>${deployment.region}</region>
-					      <workers>${deployment.workers}</workers>
-					      <workerType>${deployment.workerType}</workerType>
-					      <objectStoreV2>true</objectStoreV2>
-					      <properties>
-					        <http.port>$.{http.port}</http.port>
-					        <mule.env>${env}</mule.env>
-					      </properties>
+					        <cloudHubDeployment>
+		            <uri>https://anypoint.mulesoft.com</uri>
+		            <muleVersion>${mule.vesrion}</muleVersion>
+		            <username>${anypoint.username}</username>
+		            <password>${anypoint.password}</password>
+		            <applicationName>${appname}</applicationName>
+		            <businessGroup>${business}</businessGroup>
+		            <environment>${env}</environment>
+		            <workerType>${vCore}</workerType>
+		            <workers>${workers}</workers>
+		            <region>${region}</region>
+		            <objectStoreV2>true</objectStoreV2>
+					<!-- <properties>
+						<http.port>8081</http.port>
+					</properties> -->
+		        </cloudHubDeployment> 
 					    </cloudHubDeployment>
 					  </configuration>
 			</plugin>
